@@ -32,10 +32,9 @@ int main()
 
 	pthread_join(t1, NULL);
 	pthread_join(t2, NULL);
-	pthread_detach(t1);
-	pthread_detach(t2);
+	// pthread_detach(t1);
+	// pthread_detach(t2);
 	// usleep(3000000);
 	write(1, "END\n", 4);
-
 	return 0;
 }

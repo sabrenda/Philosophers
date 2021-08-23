@@ -16,8 +16,23 @@ int ft_check_arg(int ac, char **av)
 	return (0);
 }
 
+void ft_init(int ac, char **av, t_all *all)
+{
+	all->num_philo = ft_atoi(av[1]);
+	all->time_to_die = ft_atoi(av[2]);
+	all->time_to_eat = ft_atoi(av[3]);
+	all->time_to_sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		all->num_eats = ft_atoi(av[5]);
+	else
+		all->num_eats = -1;
+}
+
 void ft_start(int ac, char **av)
 {
+	t_all all;
+
+	ft_init(ac, av, &all);
 
 }
 

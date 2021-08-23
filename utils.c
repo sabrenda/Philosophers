@@ -24,3 +24,15 @@ int ft_atoi(const char *str)
 	}
 	return (b * res);
 }
+
+int ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
