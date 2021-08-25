@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 pthread_mutex_t mutex;
 void *print(void *buf)
@@ -20,6 +21,7 @@ int main()
 {
 	char *str1 = "1_1_1_1_1_1\n";
 	char *str2 = "2_2_2_2_2_2\n";
+	struct timeval tv, tv2;
 
 	pthread_t t1, t2;
 	pthread_mutex_init(&mutex, NULL);
@@ -35,6 +37,14 @@ int main()
 	// pthread_detach(t1);
 	// pthread_detach(t2);
 	// usleep(3000000);
+	gettimeofday(&tv2, NULL);
+	uint64_t i = (tv2.tv_sec * (uint64_t)1000) + (tv2.tv_usec / 1000);
+	while (1)
+	{
+		gettimeofday(&tv, NULL);
+		printf("time elapsed: %llu usec\n", (tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000) - i);
+	}
+
 	write(1, "END\n", 4);
 	return 0;
 }
