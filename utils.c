@@ -36,3 +36,33 @@ int ft_strlen(char *str)
 		i++;
 	return (i);
 }
+
+int	ft_exit(char *str)
+{
+	if (str)
+		printf("%s", str);
+	return (1);
+}
+
+unsigned long long int	ft_start_time(void)
+{
+	static struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+int	check_digit(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] >= 48 && arg[i] <= 57)
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}

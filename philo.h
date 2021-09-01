@@ -4,38 +4,52 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <sys/time.h>
-#include <sys/types.h> //for linux
-#include <sys/wait.h>  //for linux
-
-struct s_all;
 
 typedef struct		s_philo
 {
-	unsigned long long int limit;
-	unsigned long long int last_eat;
-	int				position;
-	int				is_eating;
-	int				l_fork;
-	int				r_fork;
-	int				eat_count;
-	struct s_all	*all;
-	pthread_mutex_t	mutex;
-	pthread_mutex_t	eat_m;
+	int						count_philo;
+	int						num_eats;
+	unsigned long long int	time_to_die;
+	unsigned long long int	time_to_eat;
+	unsigned long long int	time_to_sleep;
+	unsigned long long int start_time;
+	unsigned long long int start_life;
+	pthread_t	thread;
+	pthread_mutex_t				*l_fork;
+	pthread_mutex_t				*r_fork;
+	pthread_mutex_t				*info;
 }					t_philo;
 
 typedef struct		s_all
 {
 	int						num_philo;
+	int						num_eats;
 	unsigned long long int	time_to_die;
 	unsigned long long int	time_to_eat;
 	unsigned long long int	time_to_sleep;
-	int						num_eats;
-	unsigned long long int	start;
+	unsigned long long int	start_time;
+	pthread_mutex_t	*m_forks;
+	pthread_mutex_t	info;
 	t_philo			*philos;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	write;
-	pthread_mutex_t	dead;
 }					t_all;
+
+int ft_strlen(char *str);
+int ft_atoi(const char *str);
+int ft_init(int ac, char **av, t_all *all);
+void init_phil(t_all *all);
+int	check_digit(char *arg);
+int ft_start(t_all *al);
+void	*philo(void *pl);
+void	*monitor(void *al);
+int	death_note(int *omnomnom, t_all *all, int *i);
+unsigned long long int	ft_start_time(void);
+void	go_to_sleep(t_philo *philo);
+void	ft_eating(t_philo *philo);
+void	take_a_fork(t_philo *philo);
+void	my_usleep(long long int time);
+int	ft_exit(char *str);
+void clean_all(t_all *all);
 
 #endif
